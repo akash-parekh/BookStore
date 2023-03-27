@@ -5,6 +5,17 @@ from django.utils.text import slugify
 
 # Create your models here.
 
+class Country(models.Model):
+    name = models.CharField(max_length=80)
+    code = models.CharField(max_length=2)
+
+    def __str__(self):
+        return f"{self.name}"
+    
+    class Meta:
+        verbose_name_plural = 'Countries'
+
+
 class Address(models.Model):
     street = models.CharField(max_length=80)
     postal_code = models.CharField(max_length=5)
@@ -34,6 +45,7 @@ class Book(models.Model):
         Author, on_delete=models.CASCADE, null=True, related_name="books")
     is_bestselling = models.BooleanField(default=False)
     slug = models.SlugField(default="", null=False, db_index=True)
+    published_countries = models.ManyToManyField(Country, name=False)
 
     def __str__(self):
         return f"{self.title} ({self.rating}) by {self.author}"
