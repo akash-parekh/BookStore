@@ -45,7 +45,7 @@ class Book(models.Model):
         Author, on_delete=models.CASCADE, null=True, related_name="books")
     is_bestselling = models.BooleanField(default=False)
     slug = models.SlugField(default="", null=False, db_index=True)
-    published_countries = models.ManyToManyField(Country, name=False)
+    published_countries = models.ManyToManyField(Country, null=False)
 
     def __str__(self):
         return f"{self.title} ({self.rating}) by {self.author}"
